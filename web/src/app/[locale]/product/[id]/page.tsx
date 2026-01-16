@@ -1,6 +1,6 @@
 import { getProductById } from '@/services/productService'
 import { Phone, MessageCircle, ArrowLeft, ShieldCheck, Truck, Clock } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 
 export const revalidate = 60
 

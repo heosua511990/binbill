@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { getProducts } from '@/services/productService'
 import { ArrowRight, ShoppingBag, Star, Zap, TrendingUp } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
@@ -44,12 +44,12 @@ export default async function HomePage() {
                   {t('subtitle')}
                 </p>
                 <div className="mt-4 sm:mt-6 flex justify-center lg:justify-start gap-3">
-                  <a href="#new-arrivals" className="flex items-center justify-center px-6 py-2 border border-transparent text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-700 md:py-3 md:text-lg md:px-8 shadow-lg hover:shadow-blue-500/30 transition-all hover:-translate-y-1">
+                  <Link href="/search?category=new" className="flex items-center justify-center px-6 py-2 border border-transparent text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-700 md:py-3 md:text-lg md:px-8 shadow-lg hover:shadow-blue-500/30 transition-all hover:-translate-y-1">
                     {t('shopNew')}
-                  </a>
-                  <a href="#second-hand" className="flex items-center justify-center px-6 py-2 border-2 border-slate-200 text-base font-bold rounded-full text-slate-700 bg-transparent hover:bg-slate-50 md:py-3 md:text-lg md:px-8 transition-all">
+                  </Link>
+                  <Link href="/search?category=second_hand" className="flex items-center justify-center px-6 py-2 border-2 border-slate-200 text-base font-bold rounded-full text-slate-700 bg-transparent hover:bg-slate-50 md:py-3 md:text-lg md:px-8 transition-all">
                     {t('shopSecondHand')}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

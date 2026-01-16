@@ -25,6 +25,7 @@ export default function ProductForm({ initialData }: ProductFormProps) {
         condition: '',
         is_hot: false,
         is_active: true,
+        product_type: '',
         ...initialData
     })
 
@@ -202,6 +203,31 @@ export default function ProductForm({ initialData }: ProductFormProps) {
                             <span className="text-sm font-medium text-slate-700 group-hover:text-blue-600 transition-colors">Mark as Hot / Recommended</span>
                         </label>
                     </div>
+                </div>
+
+                {/* Product Type */}
+                <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">Product Type</label>
+                    <input
+                        type="text"
+                        name="product_type"
+                        list="product-types"
+                        value={formData.product_type || ''}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-400"
+                        placeholder="e.g. Headphones, Watch, Camera (Type to create new)"
+                    />
+                    <datalist id="product-types">
+                        <option value="Headphones" />
+                        <option value="Watch" />
+                        <option value="Speaker" />
+                        <option value="Camera" />
+                        <option value="Laptop" />
+                        <option value="Phone" />
+                        <option value="Accessories" />
+                        <option value="Furniture" />
+                        <option value="Clothing" />
+                    </datalist>
                 </div>
 
                 {/* Condition (Only for Second Hand) */}

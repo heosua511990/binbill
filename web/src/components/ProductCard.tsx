@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { Product } from '@/types'
 import { ShoppingBag, Star, Zap, Clock } from 'lucide-react'
 

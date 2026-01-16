@@ -9,5 +9,6 @@ export interface Product {
     condition?: string; // e.g. "Like New", "99%", "95%"
     is_hot: boolean;
     is_active: boolean;
+    product_type?: string; // e.g. "Headphones", "Watch"
     created_at: string;
 }
