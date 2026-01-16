@@ -5,6 +5,8 @@ import ProductCard from '@/components/ProductCard'
 import { getTranslations } from 'next-intl/server'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
+import Header from '@/components/Header'
+
 export const revalidate = 60
 
 export default async function HomePage() {
@@ -20,23 +22,17 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen bg-slate-50 font-sans selection:bg-blue-100 selection:text-blue-900">
+      <Header />
 
       {/* Hero Section - Immersive & Visual */}
       <div className="relative bg-white overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-50 to-blue-50/50" />
 
-        {/* Language Switcher - Absolute Top Right */}
-        <div className="absolute top-4 right-4 z-50">
-          <LanguageSwitcher />
-        </div>
-
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-transparent sm:pb-12 md:pb-16 lg:w-full lg:pb-20 xl:pb-24 flex flex-col justify-center min-h-[35vh] px-4 sm:px-6 lg:px-8">
             <div className="mt-4 mx-auto max-w-7xl sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12 lg:w-[55%] lg:mx-0">
               <div className="sm:text-center lg:text-left">
-                <div className="mb-8">
-                  <img src="/Logo-BinBill.png" alt="BinBill Logo" className="h-24 w-auto sm:mx-auto lg:mx-0 drop-shadow-sm" />
-                </div>
+
                 <h1 className="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl mb-4">
                   <span className="block xl:inline">{t('title')}</span>
                 </h1>

@@ -3,6 +3,7 @@ import ProductCard from '@/components/ProductCard'
 import { Search, Filter, X } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
+import Header from '@/components/Header'
 
 export const revalidate = 0 // Dynamic page
 
@@ -51,31 +52,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
     return (
         <div className="min-h-screen bg-slate-50">
-            {/* Header / Nav (Simplified) */}
-            <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-                    <Link href="/" className="flex-shrink-0">
-                        <img src="/Logo-BinBill.png" alt="BinBill" className="h-10 w-auto" />
-                    </Link>
-
-                    {/* Search Bar */}
-                    <form className="flex-1 max-w-lg relative">
-                        <input
-                            type="text"
-                            name="q"
-                            defaultValue={q}
-                            placeholder="Search products..."
-                            className="w-full pl-10 pr-4 py-2 bg-slate-100 border-transparent focus:bg-white focus:border-blue-500 rounded-full text-sm focus:ring-0 transition-all"
-                        />
-                        <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                    </form>
-
-                    <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-                        <Link href="/" className="hover:text-blue-600 transition-colors">{tNav('home')}</Link>
-                        <Link href="/search" className="text-blue-600">{tNav('products')}</Link>
-                    </nav>
-                </div>
-            </header>
+            <Header />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex flex-col lg:flex-row gap-8">
