@@ -1,0 +1,27 @@
+{
+    "HomePage": {
+        "title": "Elevate Your Lifestyle",
+        "subtitle": "Discover curated premium products and quality second-hand deals at BinBill.",
+        "shopNew": "Shop New Arrivals",
+        "shopSecondHand": "Shop Second Hand",
+        "flashSale": "Flash Sale",
+        "newArrivals": "New Arrivals",
+        "secondHand": "Second Hand Deals",
+        "viewDetails": "View Details",
+        "addToCart": "Add to Cart",
+        "viewAll": "View All"
+    },
+    "Navigation": {
+        "home": "Home",
+        "products": "Products",
+        "about": "About",
+        "contact": "Contact",
+        "admin": "Admin"
+    },
+    "Common": {
+        "loading": "Loading...",
+        "error": "Something went wrong",
+        "price": "Price",
+        "condition": "Condition"
+    }
+}

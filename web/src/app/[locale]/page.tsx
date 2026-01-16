@@ -2,10 +2,13 @@ import Link from 'next/link'
 import { getProducts } from '@/services/productService'
 import { ArrowRight, ShoppingBag, Star, Zap, TrendingUp } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
+import { getTranslations } from 'next-intl/server'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export const revalidate = 60
 
 export default async function HomePage() {
+  const t = await getTranslations('HomePage')
   const products = await getProducts(false)
 
   const saleProducts = products.filter(p => p.category === 'sale')
@@ -21,6 +24,12 @@ export default async function HomePage() {
       {/* Hero Section - Immersive & Visual */}
       <div className="relative bg-white overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-50 to-blue-50/50" />
+
+        {/* Language Switcher - Absolute Top Right */}
+        <div className="absolute top-4 right-4 z-50">
+          <LanguageSwitcher />
+        </div>
+
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-transparent sm:pb-12 md:pb-16 lg:w-full lg:pb-20 xl:pb-24 flex flex-col justify-center min-h-[35vh] px-4 sm:px-6 lg:px-8">
             <div className="mt-4 mx-auto max-w-7xl sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12 lg:w-[55%] lg:mx-0">
@@ -29,18 +38,17 @@ export default async function HomePage() {
                   <img src="/Logo-BinBill.png" alt="BinBill Logo" className="h-16 w-auto sm:mx-auto lg:mx-0" />
                 </div>
                 <h1 className="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl mb-4">
-                  <span className="block xl:inline">Elevate Your</span>{' '}
-                  <span className="block text-blue-600 xl:inline">Lifestyle</span>
+                  <span className="block xl:inline">{t('title')}</span>
                 </h1>
                 <p className="mt-2 text-base text-slate-500 sm:mt-3 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-3 md:text-xl lg:mx-0 mb-6">
-                  Discover curated premium products and quality second-hand deals at BinBill.
+                  {t('subtitle')}
                 </p>
                 <div className="mt-4 sm:mt-6 flex justify-center lg:justify-start gap-3">
                   <a href="#new-arrivals" className="flex items-center justify-center px-6 py-2 border border-transparent text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-700 md:py-3 md:text-lg md:px-8 shadow-lg hover:shadow-blue-500/30 transition-all hover:-translate-y-1">
-                    Shop New Arrivals
+                    {t('shopNew')}
                   </a>
                   <a href="#second-hand" className="flex items-center justify-center px-6 py-2 border-2 border-slate-200 text-base font-bold rounded-full text-slate-700 bg-transparent hover:bg-slate-50 md:py-3 md:text-lg md:px-8 transition-all">
-                    Shop Second Hand
+                    {t('shopSecondHand')}
                   </a>
                 </div>
               </div>
@@ -73,7 +81,7 @@ export default async function HomePage() {
               <div className="p-3 bg-red-100 rounded-full text-red-600">
                 <Zap className="w-6 h-6 fill-current" />
               </div>
-              <h2 className="text-3xl font-bold text-slate-900">Flash Sale</h2>
+              <h2 className="text-3xl font-bold text-slate-900">{t('flashSale')}</h2>
             </div>
 
             {/* Horizontal Scroll Container */}
@@ -101,10 +109,10 @@ export default async function HomePage() {
                 <div className="p-3 bg-blue-100 rounded-full text-blue-600">
                   <Star className="w-6 h-6 fill-current" />
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900">New Arrivals</h2>
+                <h2 className="text-3xl font-bold text-slate-900">{t('newArrivals')}</h2>
               </div>
               <Link href="/search?category=new" className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1">
-                View All <ArrowRight className="w-4 h-4" />
+                {t('viewAll')} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -125,10 +133,10 @@ export default async function HomePage() {
                 <div className="p-3 bg-emerald-100 rounded-full text-emerald-600">
                   <ShoppingBag className="w-6 h-6" />
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900">Second Hand Deals</h2>
+                <h2 className="text-3xl font-bold text-slate-900">{t('secondHand')}</h2>
               </div>
               <Link href="/search?category=second_hand" className="text-emerald-600 font-semibold hover:text-emerald-700 flex items-center gap-1">
-                View All <ArrowRight className="w-4 h-4" />
+                {t('viewAll')} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

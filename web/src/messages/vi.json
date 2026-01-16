@@ -1,0 +1,27 @@
+{
+    "HomePage": {
+        "title": "Nâng Tầm Phong Cách Sống",
+        "subtitle": "Khám phá các sản phẩm cao cấp và đồ cũ chất lượng tại BinBill.",
+        "shopNew": "Mua Hàng Mới",
+        "shopSecondHand": "Mua Đồ Cũ",
+        "flashSale": "Giờ Vàng Giá Sốc",
+        "newArrivals": "Hàng Mới Về",
+        "secondHand": "Đồ Cũ Giá Tốt",
+        "viewDetails": "Xem Chi Tiết",
+        "addToCart": "Thêm Vào Giỏ",
+        "viewAll": "Xem Tất Cả"
+    },
+    "Navigation": {
+        "home": "Trang Chủ",
+        "products": "Sản Phẩm",
+        "about": "Giới Thiệu",
+        "contact": "Liên Hệ",
+        "admin": "Quản Trị"
+    },
+    "Common": {
+        "loading": "Đang tải...",
+        "error": "Có lỗi xảy ra",
+        "price": "Giá",
+        "condition": "Tình trạng"
+    }
+}
