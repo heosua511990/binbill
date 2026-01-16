@@ -55,7 +55,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
                     <Link href="/" className="flex-shrink-0">
-                        <img src="/Logo-BinBill.png" alt="BinBill" className="h-8 w-auto" />
+                        <img src="/Logo-BinBill.png" alt="BinBill" className="h-10 w-auto" />
                     </Link>
 
                     {/* Search Bar */}

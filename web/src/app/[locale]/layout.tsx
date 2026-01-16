@@ -16,6 +16,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: "BinBill - Premium & Second Hand Store",
+  description: "Your destination for premium new arrivals and quality second-hand deals.",
+  icons: {
+    icon: '/Logo-BinBill.png',
+    apple: '/Logo-BinBill.png',
+    shortcut: '/Logo-BinBill.png',
+  },
+};
+
 export default async function RootLayout({
   children,
   params
