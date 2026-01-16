@@ -34,8 +34,8 @@ export default async function HomePage() {
           <div className="relative z-10 pb-8 bg-transparent sm:pb-12 md:pb-16 lg:w-full lg:pb-20 xl:pb-24 flex flex-col justify-center min-h-[35vh] px-4 sm:px-6 lg:px-8">
             <div className="mt-4 mx-auto max-w-7xl sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12 lg:w-[55%] lg:mx-0">
               <div className="sm:text-center lg:text-left">
-                <div className="mb-6">
-                  <img src="/Logo-BinBill.png" alt="BinBill Logo" className="h-16 w-auto sm:mx-auto lg:mx-0" />
+                <div className="mb-8">
+                  <img src="/Logo-BinBill.png" alt="BinBill Logo" className="h-24 w-auto sm:mx-auto lg:mx-0 drop-shadow-sm" />
                 </div>
                 <h1 className="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl mb-4">
                   <span className="block xl:inline">{t('title')}</span>
