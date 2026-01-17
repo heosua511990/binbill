@@ -51,6 +51,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                 <span className="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold tracking-wide uppercase mb-4">
                                     Chất lượng cao
                                 </span>
+                                {product.category && (
+                                    <Link
+                                        href={`/search?category=${product.category}`}
+                                        className="inline-block ml-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold tracking-wide uppercase mb-4 hover:bg-slate-200 transition-colors"
+                                    >
+                                        Xem thêm {product.category === 'new' ? 'Hàng mới' : product.category === 'second_hand' ? 'Hàng cũ' : product.category === 'sale' ? 'Giảm giá' : 'Sản phẩm'}
+                                    </Link>
+                                )}
                                 <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
                                     {product.name}
                                 </h1>
