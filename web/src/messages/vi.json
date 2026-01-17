@@ -55,6 +55,7 @@
         "inStock": "Còn Hàng"
     },
     "Admin": {
+        "sidebarTitle": "Quản trị BinBill",
         "dashboard": "Bảng Điều Khiển",
         "products": "Sản Phẩm",
         "settings": "Cài Đặt",

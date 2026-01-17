@@ -1,15 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import { LayoutDashboard, Package, Settings, LogOut } from 'lucide-react'
+import { Package, Settings, LogOut } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function AdminProtectedLayout({ children }: { children: React.ReactNode }) {
     const { user, loading, signOut } = useAuth()
     const router = useRouter()
     const pathname = usePathname()
+    const t = useTranslations('Admin')
+    const tAuth = useTranslations('Auth')
 
     useEffect(() => {
         if (!loading && !user) {
@@ -26,9 +29,8 @@ export default function AdminProtectedLayout({ children }: { children: React.Rea
     }
 
     const navItems = [
-        { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
-        { icon: Package, label: 'Products', href: '/admin' }, // Reusing same page for now
-        { icon: Settings, label: 'Settings', href: '/admin/settings' },
+        { icon: Package, label: t('products'), href: '/admin' },
+        { icon: Settings, label: t('settings'), href: '/admin/settings' },
     ]
 
     return (
@@ -40,7 +42,7 @@ export default function AdminProtectedLayout({ children }: { children: React.Rea
                         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
                             B
                         </div>
-                        <span className="text-xl font-bold text-slate-900">BinBill Admin</span>
+                        <span className="text-xl font-bold text-slate-900">{t('sidebarTitle')}</span>
                     </div>
                 </div>
 
@@ -69,7 +71,7 @@ export default function AdminProtectedLayout({ children }: { children: React.Rea
                         className="flex items-center gap-3 px-4 py-3 w-full text-slate-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all"
                     >
                         <LogOut className="w-5 h-5" />
-                        Sign Out
+                        {tAuth('signOut')}
                     </button>
                 </div>
             </aside>
