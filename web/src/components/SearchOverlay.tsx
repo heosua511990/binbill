@@ -53,10 +53,8 @@ export default function SearchOverlay() {
                 // or better: call a server action that filters DB side.
                 // For now, let's assume getProducts returns all and we filter.
                 // ideally: await searchProducts(debouncedQuery)
-                const all = await getProducts(false)
-                const filtered = all.filter(p =>
-                    p.name.toLowerCase().includes(debouncedQuery.toLowerCase())
-                ).slice(0, 5) // Limit 5
+                // ideally: await searchProducts(debouncedQuery)
+                const { data: filtered } = await getProducts(false, 1, 5, { search: debouncedQuery })
                 setResults(filtered)
             } catch (error) {
                 console.error(error)

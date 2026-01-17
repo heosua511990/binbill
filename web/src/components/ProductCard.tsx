@@ -1,6 +1,6 @@
 import { Link } from '@/i18n/routing'
 import { Product } from '@/types'
-import { ShoppingBag, Star, Zap, Clock } from 'lucide-react'
+import { Star, Zap, MapPin } from 'lucide-react'
 import { MotionDiv, fadeIn } from './MotionDiv'
 
 interface ProductCardProps {
@@ -12,75 +12,95 @@ export default function ProductCard({ product }: ProductCardProps) {
         ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
         : 0
 
+    // Mock data for "Shopee" feel
+    const soldCount = Math.floor(Math.random() * 5000) + 10
+    const location = ['Hà Nội', 'TP. Hồ Chí Minh', 'Đà Nẵng', 'Nước ngoài'][Math.floor(Math.random() * 4)]
+    const rating = (Math.random() * 1.5 + 3.5).toFixed(1)
+
     return (
-        <MotionDiv variants={fadeIn} className="h-full">
-            <Link href={`/product/${product.id}`} className="group block h-full">
-                <div className="relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group-hover:-translate-y-1 h-full flex flex-col border border-slate-100">
-                    {/* Image Container */}
-                    <div className="aspect-square w-full overflow-hidden bg-slate-100 relative">
-                        <img
-                            src={product.image_url}
-                            alt={product.name}
-                            className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/5" />
+        <MotionDiv variants={fadeIn} className="h-full bg-white hover:shadow-[0_0.0625rem_20px_0_rgba(0,0,0,.05)] hover:-translate-y-[1px] transition-transform duration-100 border border-transparent hover:border-blue-500 rounded-sm overflow-hidden relative group">
+            <Link href={`/product/${product.id}`} className="block h-full flex flex-col">
+                {/* Image Container */}
+                <div className="aspect-square w-full relative bg-slate-100">
+                    <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className="h-full w-full object-cover object-center"
+                    />
 
-                        {/* Badges */}
-                        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                            {product.category === 'sale' && discountPercentage > 0 && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-bold shadow-sm">
-                                    <Zap className="w-3 h-3 mr-1 fill-current" />
-                                    -{discountPercentage}%
-                                </span>
-                            )}
-                            {product.category === 'new' && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold shadow-sm">
-                                    <Clock className="w-3 h-3 mr-1" />
-                                    New
-                                </span>
-                            )}
-                            {product.is_hot && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-amber-400 text-white text-[10px] font-bold shadow-sm">
-                                    <Star className="w-3 h-3 mr-1 fill-current" />
-                                    Hot
-                                </span>
-                            )}
-                            {product.category === 'second_hand' && product.condition && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-sm">
-                                    {product.condition}
-                                </span>
-                            )}
+                    {/* Overlay for sold out or other status if needed */}
+                    {!product.is_active && (
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <span className="text-white font-bold px-3 py-1 bg-black/50 rounded-full text-xs">Hết hàng</span>
                         </div>
+                    )}
 
-                        {/* Floating Action Button */}
-                        <div className="absolute bottom-3 right-3 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                            <div className="p-2 bg-white rounded-full shadow-lg text-slate-900 hover:bg-blue-600 hover:text-white transition-colors">
-                                <ShoppingBag className="w-4 h-4" />
+                    {/* Badges */}
+                    <div className="absolute top-0 left-0 flex flex-col gap-1">
+                        {product.category === 'sale' && (
+                            <div className="bg-amber-400 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-r-sm shadow-sm">
+                                Yêu thích
                             </div>
-                        </div>
+                        )}
+                        {product.is_flash_sale && (
+                            <div className="bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-r-sm shadow-sm flex items-center gap-1">
+                                <Zap className="w-2.5 h-2.5 fill-current" /> Flash Sale
+                            </div>
+                        )}
                     </div>
 
-                    {/* Content */}
-                    <div className="p-4 flex flex-col flex-1">
-                        <h3 className="text-sm font-semibold text-slate-900 mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors min-h-[2.5em]">
-                            {product.name}
-                        </h3>
+                    {/* Discount Badge (Top Right) */}
+                    {discountPercentage > 0 && (
+                        <div className="absolute top-0 right-0 bg-yellow-400/90 text-red-600 w-9 h-10 flex flex-col items-center justify-center text-[10px] font-bold leading-tight">
+                            <span>{discountPercentage}%</span>
+                            <span className="text-white uppercase">GIẢM</span>
+                        </div>
+                    )}
+                </div>
 
-                        <div className="mt-auto pt-4 flex items-end justify-between">
-                            <div className="flex flex-col">
-                                {product.original_price && product.original_price > product.price && (
-                                    <span className="text-sm text-slate-400 line-through mb-1">
-                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.original_price)}
-                                    </span>
-                                )}
-                                <span className={`text-xl font-bold ${product.category === 'sale' ? 'text-red-600' : 'text-slate-900'}`}>
-                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
+                {/* Content */}
+                <div className="p-2 flex flex-col flex-1">
+                    <h3 className="text-xs text-slate-900 line-clamp-2 min-h-[2.5em] mb-1 leading-snug">
+                        {product.name}
+                    </h3>
+
+                    {/* Tags / Vouchers (Mock) */}
+                    <div className="flex gap-1 mb-2">
+                        <span className="border border-red-500 text-red-500 text-[9px] px-0.5 h-3.5 flex items-center leading-none">Rẻ vô địch</span>
+                    </div>
+
+                    <div className="mt-auto">
+                        <div className="flex items-baseline gap-1 flex-wrap">
+                            {product.original_price && product.original_price > product.price && (
+                                <span className="text-xs text-slate-400 line-through truncate">
+                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.original_price).replace('₫', '')}
                                 </span>
+                            )}
+                            <span className="text-base font-medium text-red-600">
+                                <span className="text-xs underline align-top mr-0.5">đ</span>
+                                {new Intl.NumberFormat('vi-VN').format(product.price)}
+                            </span>
+                        </div>
+
+                        <div className="flex items-center justify-between mt-2 text-[10px] text-slate-500">
+                            <div className="flex items-center gap-0.5">
+                                <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                                <span>{rating}</span>
                             </div>
+                            <span>Đã bán {soldCount > 1000 ? `${(soldCount / 1000).toFixed(1)}k` : soldCount}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1 mt-1 text-[10px] text-slate-400 justify-end">
+                            <span>{location}</span>
                         </div>
                     </div>
                 </div>
             </Link>
+
+            {/* Hover Find Similar (Shopee feature) - Optional */}
+            <div className="absolute bottom-0 left-0 w-full bg-blue-600 text-white text-center py-1.5 text-xs font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-200">
+                Tìm sản phẩm tương tự
+            </div>
         </MotionDiv>
     )
 }

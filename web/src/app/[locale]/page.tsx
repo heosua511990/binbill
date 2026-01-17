@@ -12,7 +12,7 @@ export const revalidate = 60
 
 export default async function HomePage() {
   const t = await getTranslations('HomePage')
-  const products = await getProducts(false)
+  const { data: products } = await getProducts(false, 1, 100, {})
 
   const saleProducts = products.filter(p => p.category === 'sale')
   const newProducts = products.filter(p => p.category === 'new')
