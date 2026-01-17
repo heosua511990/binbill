@@ -1,5 +1,6 @@
 import { getProductById } from '@/services/productService'
-import { Phone, MessageCircle, ArrowLeft, ShieldCheck, Truck, Clock } from 'lucide-react'
+import { getSettings } from '@/services/settingsService'
+import { Phone, MessageCircle, ArrowLeft, ShieldCheck, Truck, Clock, Facebook } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 
 export const revalidate = 60
@@ -7,8 +8,10 @@ export const revalidate = 60
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
     const product = await getProductById(id)
+    const settings = await getSettings()
 
     if (!product) {
+        // ... (keep existing 404)
         return (
             <div className="min-h-screen flex items-center justify-center bg-slate-50">
                 <div className="text-center">
@@ -24,7 +27,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="max-w-7xl mx-auto">
                 {/* Breadcrumb / Back */}
                 <nav className="flex items-center text-sm font-medium text-slate-500 mb-8 hover:text-slate-900 transition-colors w-fit">
-                    <Link href="/" className="flex items-center gap-2 group">
+                    <Link href="/" className="flex-center gap-2 group">
                         <div className="p-2 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all">
                             <ArrowLeft className="w-4 h-4" />
                         </div>
@@ -57,14 +60,16 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                     <p className="text-4xl font-bold text-blue-600">
                                         {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
                                     </p>
-                                    <span className="text-lg text-slate-400 line-through decoration-2">
-                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price * 1.2)}
-                                    </span>
+                                    {product.original_price && product.original_price > product.price && (
+                                        <span className="text-lg text-slate-400 line-through decoration-2">
+                                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.original_price)}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="prose prose-slate prose-lg text-slate-600 mb-10">
-                                <p>{product.description || 'Experience the perfect blend of style and functionality. This product is crafted with attention to detail and designed to elevate your everyday life.'}</p>
+                                <p>{product.description || 'Experience the perfect blend of style and functionality.'}</p>
                             </div>
 
                             {/* Trust Badges */}
@@ -83,24 +88,36 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                 </div>
                             </div>
 
-                            {/* Actions */}
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <a
-                                    href="tel:0123456789"
-                                    className="flex-1 group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-slate-900 rounded-2xl hover:bg-slate-800 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900"
-                                >
-                                    <Phone className="w-5 h-5 mr-2 transition-transform group-hover:rotate-12" />
-                                    Call to Order
-                                </a>
+                            {/* Actions - Dynamic from Settings */}
+                            <div className="flex flex-col gap-3">
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <a
+                                        href={`tel:${settings.contact_phone}`}
+                                        className="flex-1 group relative inline-flex items-center justify-center px-6 py-3.5 text-base font-bold text-white transition-all duration-200 bg-[#0f172a] rounded-xl hover:bg-slate-800 hover:shadow-lg hover:-translate-y-0.5"
+                                    >
+                                        <Phone className="w-5 h-5 mr-2" />
+                                        Call to Order
+                                    </a>
+
+                                    <a
+                                        href={settings.contact_zalo}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 group relative inline-flex items-center justify-center px-6 py-3.5 text-base font-bold text-[#0068ff] transition-all duration-200 bg-[#e5efff] rounded-xl hover:bg-[#dbe9ff] hover:shadow-md hover:-translate-y-0.5"
+                                    >
+                                        <MessageCircle className="w-5 h-5 mr-2" />
+                                        Chat on Zalo
+                                    </a>
+                                </div>
 
                                 <a
-                                    href="https://zalo.me/0123456789"
+                                    href={settings.contact_facebook}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex-1 group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-blue-700 transition-all duration-200 bg-blue-50 rounded-2xl hover:bg-blue-100 hover:shadow-md hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    className="w-full group relative inline-flex items-center justify-center px-6 py-3.5 text-base font-bold text-white transition-all duration-200 bg-[#1877f2] rounded-xl hover:bg-[#166fe5] hover:shadow-md hover:-translate-y-0.5"
                                 >
-                                    <MessageCircle className="w-5 h-5 mr-2 transition-transform group-hover:scale-110" />
-                                    Chat on Zalo
+                                    <Facebook className="w-5 h-5 mr-2" />
+                                    Chat on Facebook
                                 </a>
                             </div>
 

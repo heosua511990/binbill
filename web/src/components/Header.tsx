@@ -1,10 +1,9 @@
-'use client'
-
 import { Link, useRouter, usePathname } from '@/i18n/routing'
 import { Search, ShoppingCart, User, Menu, Globe, Phone } from 'lucide-react'
 import { useState } from 'react'
 import LanguageSwitcher from './LanguageSwitcher'
 import { useTranslations } from 'next-intl'
+import SearchOverlay from './SearchOverlay'
 
 export default function Header() {
     const t = useTranslations('Navigation')

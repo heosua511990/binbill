@@ -1,6 +1,6 @@
 import { getProducts } from '@/services/productService'
 import ProductCard from '@/components/ProductCard'
-import { Search, Filter, X } from 'lucide-react'
+import { Search, Filter, X, TrendingUp } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import Header from '@/components/Header'
@@ -74,6 +74,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                                 </Link>
                                 <Link href="/search?category=second_hand" className={`block text-sm ${category === 'second_hand' ? 'text-blue-600 font-semibold' : 'text-slate-600 hover:text-slate-900'}`}>
                                     Second Hand
+                                </Link>
+                                <div className="my-2 border-t border-slate-100"></div>
+                                <Link href="/search?category=sale" className={`flex items-center gap-2 text-sm font-medium ${category === 'sale' ? 'text-red-600' : 'text-slate-700 hover:text-red-600'}`}>
+                                    <TrendingUp className="w-4 h-4" /> On Sale / Discount
                                 </Link>
                             </div>
                         </div>
