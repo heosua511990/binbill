@@ -175,22 +175,7 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
                 </div>
             )}
 
-            {/* Rating (Mock) */}
-            <div>
-                <h3 className="text-sm font-semibold text-slate-900 mb-3">Đánh Giá</h3>
-                <div className="space-y-2 text-sm">
-                    {[5, 4, 3, 2, 1].map(star => (
-                        <div key={star} className="flex items-center gap-2 cursor-pointer hover:bg-slate-50 p-1 -ml-1 rounded">
-                            <div className="flex text-amber-400">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className={`w-3.5 h-3.5 ${i < star ? 'fill-current' : 'text-slate-200'}`} />
-                                ))}
-                            </div>
-                            <span className="text-slate-600 text-xs">{star !== 5 && 'trở lên'}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
+
 
             <button
                 onClick={() => router.push('/search')}

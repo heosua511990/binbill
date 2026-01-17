@@ -82,17 +82,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                             </span>
                         </div>
 
-                        <div className="flex items-center justify-between mt-2 text-[10px] text-slate-500">
-                            <div className="flex items-center gap-0.5">
-                                <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
-                                <span>{rating}</span>
-                            </div>
-                            <span>Đã bán {soldCount > 1000 ? `${(soldCount / 1000).toFixed(1)}k` : soldCount}</span>
-                        </div>
 
-                        <div className="flex items-center gap-1 mt-1 text-[10px] text-slate-400 justify-end">
-                            <span>{location}</span>
-                        </div>
                     </div>
                 </div>
             </Link>

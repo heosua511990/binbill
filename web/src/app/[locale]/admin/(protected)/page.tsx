@@ -9,7 +9,7 @@ import { Plus, Edit, Trash2, Eye, EyeOff, Loader2, Search, Filter } from 'lucide
 export default function AdminPage() {
     const [products, setProducts] = useState<Product[]>([])
     const [loading, setLoading] = useState(true)
-    const [searchTerm, setSearchTerm] = useState('')
+    const [category, setCategory] = useState('')
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const limit = 12
@@ -17,7 +17,8 @@ export default function AdminPage() {
     const fetchProducts = async () => {
         setLoading(true)
         try {
-            const { data: products, total } = await getProducts(true, page, limit, { search: searchTerm })
+            // @ts-ignore
+            const { data: products, total } = await getProducts(true, page, limit, { search: searchTerm, category: category || undefined })
             setProducts(products)
             setTotal(total)
         } catch (error) {
@@ -32,7 +33,7 @@ export default function AdminPage() {
             fetchProducts()
         }, 300)
         return () => clearTimeout(timer)
-    }, [page, searchTerm])
+    }, [page, searchTerm, category])
 
     const handleToggleStatus = async (product: Product) => {
         try {
@@ -75,8 +76,8 @@ export default function AdminPage() {
                 </div>
 
                 {/* Filters */}
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 mb-6 flex items-center gap-4">
-                    <div className="relative flex-1 max-w-md">
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 mb-6 flex flex-col sm:flex-row items-center gap-4">
+                    <div className="relative flex-1 w-full sm:w-auto">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <input
                             type="text"
@@ -89,9 +90,25 @@ export default function AdminPage() {
                             className="w-full pl-10 pr-4 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
                         />
                     </div>
-                    <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition">
-                        <Filter className="w-4 h-4" />
-                    </button>
+
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                        <div className="relative w-full sm:w-48">
+                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                            <select
+                                value={category}
+                                onChange={(e) => {
+                                    setCategory(e.target.value)
+                                    setPage(1)
+                                }}
+                                className="w-full pl-10 pr-8 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
+                            >
+                                <option value="">All Categories</option>
+                                <option value="standard">Standard</option>
+                                <option value="new">New Arrival</option>
+                                <option value="second_hand">Second Hand</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Grid */}
