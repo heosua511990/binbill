@@ -15,11 +15,15 @@ ON CONFLICT (key) DO NOTHING;
 -- Enable RLS
 ALTER TABLE public.settings ENABLE ROW LEVEL SECURITY;
 
--- Policy: Public read access
+-- Drop existing policies to avoid errors on re-run
+DROP POLICY IF EXISTS "Public settings are viewable by everyone." ON public.settings;
+DROP POLICY IF EXISTS "Admins can update settings" ON public.settings;
+DROP POLICY IF EXISTS "Admins can insert settings" ON public.settings;
+
+-- Re-create policies
 CREATE POLICY "Public settings are viewable by everyone." ON public.settings
     FOR SELECT USING (true);
 
--- Policy: Authenticated users (Admins) can update/insert
 CREATE POLICY "Admins can update settings" ON public.settings
     FOR UPDATE USING (auth.role() = 'authenticated');
 
