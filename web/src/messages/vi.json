@@ -9,19 +9,100 @@
         "secondHand": "Đồ Cũ Giá Tốt",
         "viewDetails": "Xem Chi Tiết",
         "addToCart": "Thêm Vào Giỏ",
-        "viewAll": "Xem Tất Cả"
+        "viewAll": "Xem Tất Cả",
+        "recommended": "Gợi Ý Cho Bạn"
     },
     "Navigation": {
         "home": "Trang Chủ",
         "products": "Sản Phẩm",
         "about": "Giới Thiệu",
         "contact": "Liên Hệ",
-        "admin": "Quản Trị"
+        "admin": "Quản Trị",
+        "categories": "Danh Mục",
+        "productTypes": "Loại Sản Phẩm",
+        "searchPlaceholder": "Tìm kiếm sản phẩm...",
+        "techNews": "Tin Công Nghệ",
+        "buildPc": "Xây Dựng Cấu Hình"
+    },
+    "Search": {
+        "title": "Kết Quả Tìm Kiếm",
+        "placeholder": "Tìm kiếm sản phẩm...",
+        "filters": "Bộ Lọc",
+        "category": "Danh Mục",
+        "priceRange": "Khoảng Giá",
+        "productType": "Loại Sản Phẩm",
+        "discount": "Đang Giảm Giá",
+        "apply": "Áp Dụng",
+        "reset": "Đặt Lại",
+        "noResults": "Không tìm thấy sản phẩm nào phù hợp.",
+        "resultsFor": "Kết quả cho",
+        "viewAllResults": "Xem tất cả kết quả"
+    },
+    "Product": {
+        "addToCart": "Thêm Vào Giỏ",
+        "buyNow": "Mua Ngay",
+        "description": "Mô Tả Sản Phẩm",
+        "specifications": "Thông Số Kỹ Thuật",
+        "relatedProducts": "Sản Phẩm Liên Quan",
+        "contactSupport": "Liên Hệ Hỗ Trợ",
+        "callToOrder": "Gọi Đặt Hàng",
+        "chatZalo": "Chat qua Zalo",
+        "chatFacebook": "Chat qua Facebook",
+        "condition": "Tình Trạng",
+        "new": "Mới",
+        "used": "Đã Qua Sử Dụng",
+        "outOfStock": "Hết Hàng",
+        "inStock": "Còn Hàng"
+    },
+    "Admin": {
+        "dashboard": "Bảng Điều Khiển",
+        "products": "Sản Phẩm",
+        "settings": "Cài Đặt",
+        "addProduct": "Thêm Sản Phẩm",
+        "editProduct": "Sửa Sản Phẩm",
+        "deleteProduct": "Xóa Sản Phẩm",
+        "save": "Lưu",
+        "cancel": "Hủy",
+        "imageUpload": "Tải Ảnh Lên",
+        "productType": "Loại Sản Phẩm",
+        "price": "Giá",
+        "salePrice": "Giá Khuyến Mãi",
+        "stock": "Tồn Kho",
+        "name": "Tên Sản Phẩm",
+        "description": "Mô Tả",
+        "category": "Danh Mục",
+        "condition": "Tình Trạng",
+        "actions": "Thao Tác",
+        "confirmDelete": "Bạn có chắc chắn muốn xóa sản phẩm này không?"
+    },
+    "Settings": {
+        "title": "Cài Đặt",
+        "changePassword": "Đổi Mật Khẩu",
+        "contactInfo": "Thông Tin Liên Hệ",
+        "contactDesc": "Quản lý hotline, link Zalo và Facebook",
+        "updatePassword": "Cập Nhật Mật Khẩu",
+        "newPassword": "Mật Khẩu Mới",
+        "confirmPassword": "Xác Nhận Mật Khẩu",
+        "hotline": "Hotline",
+        "zaloLink": "Link Zalo",
+        "facebookLink": "Link Facebook",
+        "saveChanges": "Lưu Thay Đổi",
+        "success": "Cập nhật cài đặt thành công",
+        "error": "Cập nhật thất bại"
+    },
+    "Auth": {
+        "login": "Đăng Nhập",
+        "email": "Email",
+        "password": "Mật Khẩu",
+        "signIn": "Đăng Nhập",
+        "signOut": "Đăng Xuất",
+        "welcome": "Chào mừng trở lại"
     },
     "Common": {
         "loading": "Đang tải...",
         "error": "Có lỗi xảy ra",
         "price": "Giá",
-        "condition": "Tình trạng"
+        "condition": "Tình trạng",
+        "all": "Tất cả"
     }
 }

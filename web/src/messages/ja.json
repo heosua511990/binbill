@@ -9,19 +9,100 @@
         "secondHand": "中古品",
         "viewDetails": "詳細を見る",
         "addToCart": "カートに追加",
-        "viewAll": "すべて見る"
+        "viewAll": "すべて見る",
+        "recommended": "おすすめ商品"
     },
     "Navigation": {
         "home": "ホーム",
         "products": "商品",
         "about": "私たちについて",
         "contact": "お問い合わせ",
-        "admin": "管理"
+        "admin": "管理",
+        "categories": "カテゴリー",
+        "productTypes": "商品タイプ",
+        "searchPlaceholder": "商品を検索...",
+        "techNews": "テックニュース",
+        "buildPc": "PCを組む"
+    },
+    "Search": {
+        "title": "検索結果",
+        "placeholder": "商品を検索...",
+        "filters": "フィルター",
+        "category": "カテゴリー",
+        "priceRange": "価格帯",
+        "productType": "商品タイプ",
+        "discount": "セール中",
+        "apply": "適用",
+        "reset": "リセット",
+        "noResults": "条件に一致する商品が見つかりませんでした。",
+        "resultsFor": "検索結果:",
+        "viewAllResults": "すべての結果を見る"
+    },
+    "Product": {
+        "addToCart": "カートに追加",
+        "buyNow": "今すぐ購入",
+        "description": "商品説明",
+        "specifications": "仕様",
+        "relatedProducts": "関連商品",
+        "contactSupport": "サポートに連絡",
+        "callToOrder": "電話で注文",
+        "chatZalo": "Zaloでチャット",
+        "chatFacebook": "Facebookでチャット",
+        "condition": "状態",
+        "new": "新品",
+        "used": "中古",
+        "outOfStock": "在庫切れ",
+        "inStock": "在庫あり"
+    },
+    "Admin": {
+        "dashboard": "ダッシュボード",
+        "products": "商品管理",
+        "settings": "設定",
+        "addProduct": "商品を追加",
+        "editProduct": "商品を編集",
+        "deleteProduct": "商品を削除",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "imageUpload": "画像をアップロード",
+        "productType": "商品タイプ",
+        "price": "価格",
+        "salePrice": "セール価格",
+        "stock": "在庫",
+        "name": "商品名",
+        "description": "説明",
+        "category": "カテゴリー",
+        "condition": "状態",
+        "actions": "操作",
+        "confirmDelete": "この商品を削除してもよろしいですか？"
+    },
+    "Settings": {
+        "title": "設定",
+        "changePassword": "パスワード変更",
+        "contactInfo": "連絡先情報",
+        "contactDesc": "ホットライン、Zalo、Facebookリンクの管理",
+        "updatePassword": "パスワードを更新",
+        "newPassword": "新しいパスワード",
+        "confirmPassword": "新しいパスワード（確認）",
+        "hotline": "ホットライン",
+        "zaloLink": "Zaloリンク",
+        "facebookLink": "Facebookリンク",
+        "saveChanges": "変更を保存",
+        "success": "設定が更新されました",
+        "error": "更新に失敗しました"
+    },
+    "Auth": {
+        "login": "ログイン",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "signIn": "サインイン",
+        "signOut": "サインアウト",
+        "welcome": "おかえりなさい"
     },
     "Common": {
         "loading": "読み込み中...",
         "error": "エラーが発生しました",
         "price": "価格",
-        "condition": "状態"
+        "condition": "状態",
+        "all": "すべて"
     }
 }

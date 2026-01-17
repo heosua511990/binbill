@@ -48,7 +48,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased`}
+        className={`${inter.variable} ${notoSansJP.variable} ${locale === 'ja' ? 'font-jp' : 'font-sans'} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           {children}

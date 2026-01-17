@@ -9,19 +9,100 @@
         "secondHand": "Second Hand Deals",
         "viewDetails": "View Details",
         "addToCart": "Add to Cart",
-        "viewAll": "View All"
+        "viewAll": "View All",
+        "recommended": "Recommended for You"
     },
     "Navigation": {
         "home": "Home",
         "products": "Products",
         "about": "About",
         "contact": "Contact",
-        "admin": "Admin"
+        "admin": "Admin",
+        "categories": "Categories",
+        "productTypes": "Product Types",
+        "searchPlaceholder": "Search products...",
+        "techNews": "Tech News",
+        "buildPc": "Build PC"
+    },
+    "Search": {
+        "title": "Search Results",
+        "placeholder": "Search for products...",
+        "filters": "Filters",
+        "category": "Category",
+        "priceRange": "Price Range",
+        "productType": "Product Type",
+        "discount": "On Sale",
+        "apply": "Apply Filters",
+        "reset": "Reset",
+        "noResults": "No products found matching your criteria.",
+        "resultsFor": "Results for",
+        "viewAllResults": "View all results"
+    },
+    "Product": {
+        "addToCart": "Add to Cart",
+        "buyNow": "Buy Now",
+        "description": "Description",
+        "specifications": "Specifications",
+        "relatedProducts": "Related Products",
+        "contactSupport": "Contact Support",
+        "callToOrder": "Call to Order",
+        "chatZalo": "Chat on Zalo",
+        "chatFacebook": "Chat on Facebook",
+        "condition": "Condition",
+        "new": "New",
+        "used": "Used",
+        "outOfStock": "Out of Stock",
+        "inStock": "In Stock"
+    },
+    "Admin": {
+        "dashboard": "Dashboard",
+        "products": "Products",
+        "settings": "Settings",
+        "addProduct": "Add Product",
+        "editProduct": "Edit Product",
+        "deleteProduct": "Delete Product",
+        "save": "Save",
+        "cancel": "Cancel",
+        "imageUpload": "Upload Images",
+        "productType": "Product Type",
+        "price": "Price",
+        "salePrice": "Sale Price",
+        "stock": "Stock",
+        "name": "Product Name",
+        "description": "Description",
+        "category": "Category",
+        "condition": "Condition",
+        "actions": "Actions",
+        "confirmDelete": "Are you sure you want to delete this product?"
+    },
+    "Settings": {
+        "title": "Settings",
+        "changePassword": "Change Password",
+        "contactInfo": "Contact Information",
+        "contactDesc": "Manage hotline, Zalo, and Facebook links",
+        "updatePassword": "Update Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "hotline": "Hotline",
+        "zaloLink": "Zalo Link",
+        "facebookLink": "Facebook Link",
+        "saveChanges": "Save Changes",
+        "success": "Settings updated successfully",
+        "error": "Failed to update settings"
+    },
+    "Auth": {
+        "login": "Login",
+        "email": "Email",
+        "password": "Password",
+        "signIn": "Sign In",
+        "signOut": "Sign Out",
+        "welcome": "Welcome back"
     },
     "Common": {
         "loading": "Loading...",
         "error": "Something went wrong",
         "price": "Price",
-        "condition": "Condition"
+        "condition": "Condition",
+        "all": "All"
     }
 }
