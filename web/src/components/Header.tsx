@@ -1,3 +1,5 @@
+'use client'
+
 import { Link, useRouter, usePathname } from '@/i18n/routing'
 import { Search, ShoppingCart, User, Menu, Globe, Phone } from 'lucide-react'
 import { useState } from 'react'
