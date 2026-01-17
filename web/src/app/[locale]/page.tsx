@@ -4,6 +4,7 @@ import { ArrowRight, ShoppingBag, Star, Zap, TrendingUp } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import { getTranslations } from 'next-intl/server'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { MotionDiv, staggerContainer, fadeIn } from '@/components/MotionDiv'
 
 import Header from '@/components/Header'
 
@@ -30,7 +31,12 @@ export default async function HomePage() {
 
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-transparent sm:pb-12 md:pb-16 lg:w-full lg:pb-20 xl:pb-24 flex flex-col justify-center min-h-[35vh] px-4 sm:px-6 lg:px-8">
-            <div className="mt-4 mx-auto max-w-7xl sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12 lg:w-[55%] lg:mx-0">
+            <MotionDiv
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mt-4 mx-auto max-w-7xl sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12 lg:w-[55%] lg:mx-0"
+            >
               <div className="sm:text-center lg:text-left">
 
                 <h1 className="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl mb-4">
@@ -40,20 +46,25 @@ export default async function HomePage() {
                   {t('subtitle')}
                 </p>
                 <div className="mt-4 sm:mt-6 flex justify-center lg:justify-start gap-3">
-                  <Link href="/search?category=new" className="flex items-center justify-center px-6 py-2 border border-transparent text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-700 md:py-3 md:text-lg md:px-8 shadow-lg hover:shadow-blue-500/30 transition-all hover:-translate-y-1">
+                  <Link href="/search?category=new" className="flex items-center justify-center px-6 py-2 border border-transparent text-base font-bold rounded-full text-white bg-blue-600 hover:bg-blue-700 md:py-3 md:text-lg md:px-8 shadow-lg hover:shadow-blue-500/30 transition-all hover:-translate-y-1 active:scale-95">
                     {t('shopNew')}
                   </Link>
-                  <Link href="/search?category=second_hand" className="flex items-center justify-center px-6 py-2 border-2 border-slate-200 text-base font-bold rounded-full text-slate-700 bg-transparent hover:bg-slate-50 md:py-3 md:text-lg md:px-8 transition-all">
+                  <Link href="/search?category=second_hand" className="flex items-center justify-center px-6 py-2 border-2 border-slate-200 text-base font-bold rounded-full text-slate-700 bg-transparent hover:bg-slate-50 md:py-3 md:text-lg md:px-8 transition-all active:scale-95">
                     {t('shopSecondHand')}
                   </Link>
                 </div>
               </div>
-            </div>
+            </MotionDiv>
           </div>
         </div>
 
         {/* Hero Image */}
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-[45%] bg-slate-100">
+        <MotionDiv
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-[45%] bg-slate-100"
+        >
           {heroProduct ? (
             <img
               className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
@@ -66,7 +77,7 @@ export default async function HomePage() {
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent lg:via-white/0"></div>
-        </div>
+        </MotionDiv>
       </div>
 
       {/* Flash Sale Section */}
@@ -74,7 +85,7 @@ export default async function HomePage() {
         <section id="sale" className="pt-10 pb-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-4 mb-8">
-              <div className="p-3 bg-red-100 rounded-full text-red-600">
+              <div className="p-3 bg-red-100 rounded-full text-red-600 animate-pulse">
                 <Zap className="w-6 h-6 fill-current" />
               </div>
               <h2 className="text-3xl font-bold text-slate-900">{t('flashSale')}</h2>
@@ -107,15 +118,21 @@ export default async function HomePage() {
                 </div>
                 <h2 className="text-3xl font-bold text-slate-900">{t('newArrivals')}</h2>
               </div>
-              <Link href="/search?category=new" className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1">
+              <Link href="/search?category=new" className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1 hover:gap-2 transition-all">
                 {t('viewAll')} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <MotionDiv
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+            >
               {newProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
-            </div>
+            </MotionDiv>
           </div>
         </section>
       )}
@@ -131,15 +148,21 @@ export default async function HomePage() {
                 </div>
                 <h2 className="text-3xl font-bold text-slate-900">{t('secondHand')}</h2>
               </div>
-              <Link href="/search?category=second_hand" className="text-emerald-600 font-semibold hover:text-emerald-700 flex items-center gap-1">
+              <Link href="/search?category=second_hand" className="text-emerald-600 font-semibold hover:text-emerald-700 flex items-center gap-1 hover:gap-2 transition-all">
                 {t('viewAll')} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <MotionDiv
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+            >
               {products.filter(p => p.category === 'second_hand').map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
-            </div>
+            </MotionDiv>
           </div>
         </section>
       )}
@@ -154,11 +177,17 @@ export default async function HomePage() {
               </div>
               <h2 className="text-3xl font-bold text-slate-900">Recommended For You</h2>
             </div>
-            <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <MotionDiv
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+            >
               {hotProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
-            </div>
+            </MotionDiv>
           </div>
         </section>
       )}
@@ -167,11 +196,17 @@ export default async function HomePage() {
       <section className="py-20 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-8">All Products</h2>
-          <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <MotionDiv
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+          >
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
-          </div>
+          </MotionDiv>
         </div>
       </section>
 
