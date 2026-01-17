@@ -2,16 +2,23 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { Product } from '@/types'
 import { getProducts, updateProduct, deleteProduct } from '@/services/productService'
 import { Plus, Edit, Trash2, Eye, EyeOff, Loader2, Search, Filter } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 
 export default function AdminPage() {
+    const t = useTranslations('Admin')
+    const tCommon = useTranslations('Common')
+    const tFilters = useTranslations('Admin.filters')
     const [products, setProducts] = useState<Product[]>([])
     const [loading, setLoading] = useState(true)
     const [searchTerm, setSearchTerm] = useState('')
     const [category, setCategory] = useState('')
+    const [isHot, setIsHot] = useState<string>('all')
+    const [isFlashSale, setIsFlashSale] = useState<string>('all')
+    const [status, setStatus] = useState<string>('all')
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const limit = 12
@@ -20,7 +27,13 @@ export default function AdminPage() {
         setLoading(true)
         try {
             // @ts-ignore
-            const { data: products, total } = await getProducts(true, page, limit, { search: searchTerm, category: category || undefined })
+            const { data: products, total } = await getProducts(true, page, limit, {
+                search: searchTerm,
+                category: (category as 'new' | 'second_hand' | 'standard') || undefined,
+                isHot: isHot === 'all' ? undefined : isHot === 'true',
+                isFlashSale: isFlashSale === 'all' ? undefined : isFlashSale === 'true',
+                isActive: status === 'all' ? undefined : status === 'active'
+            })
             setProducts(products)
             setTotal(total)
         } catch (error) {
@@ -35,7 +48,7 @@ export default function AdminPage() {
             fetchProducts()
         }, 300)
         return () => clearTimeout(timer)
-    }, [page, searchTerm, category])
+    }, [page, searchTerm, category, isHot, isFlashSale, status])
 
     const handleToggleStatus = async (product: Product) => {
         try {
@@ -68,22 +81,22 @@ export default function AdminPage() {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900">Products</h1>
-                        <p className="text-slate-500 text-sm mt-1">Manage your inventory and visibility.</p>
+                        <h1 className="text-2xl font-bold text-slate-900">{t('products')}</h1>
+                        <p className="text-slate-500 text-sm mt-1">{t('subtitle')}</p>
                     </div>
                     <Link href="/admin/new" className="inline-flex items-center justify-center px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition shadow-sm">
                         <Plus className="w-4 h-4 mr-2" />
-                        Add New Product
+                        {t('addProduct')}
                     </Link>
                 </div>
 
                 {/* Filters */}
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 mb-6 flex flex-col sm:flex-row items-center gap-4">
-                    <div className="relative flex-1 w-full sm:w-auto">
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 mb-6 flex flex-col lg:flex-row items-center gap-4">
+                    <div className="relative flex-1 w-full lg:w-auto">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <input
                             type="text"
-                            placeholder="Search products..."
+                            placeholder={tFilters('searchPlaceholder')}
                             value={searchTerm}
                             onChange={(e) => {
                                 setSearchTerm(e.target.value)
@@ -93,21 +106,65 @@ export default function AdminPage() {
                         />
                     </div>
 
-                    <div className="flex items-center gap-2 w-full sm:w-auto">
-                        <div className="relative w-full sm:w-48">
-                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full lg:w-auto">
+                        <div className="relative w-full">
                             <select
                                 value={category}
                                 onChange={(e) => {
                                     setCategory(e.target.value)
                                     setPage(1)
                                 }}
-                                className="w-full pl-10 pr-8 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
+                                className="w-full px-3 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
                             >
-                                <option value="">All Categories</option>
+                                <option value="">{tFilters('allCategories')}</option>
                                 <option value="standard">Standard</option>
                                 <option value="new">New Arrival</option>
                                 <option value="second_hand">Second Hand</option>
+                            </select>
+                        </div>
+
+                        <div className="relative w-full">
+                            <select
+                                value={isHot}
+                                onChange={(e) => {
+                                    setIsHot(e.target.value)
+                                    setPage(1)
+                                }}
+                                className="w-full px-3 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
+                            >
+                                <option value="all">{tFilters('hot')}</option>
+                                <option value="true">{tFilters('yes')}</option>
+                                <option value="false">{tFilters('no')}</option>
+                            </select>
+                        </div>
+
+                        <div className="relative w-full">
+                            <select
+                                value={isFlashSale}
+                                onChange={(e) => {
+                                    setIsFlashSale(e.target.value)
+                                    setPage(1)
+                                }}
+                                className="w-full px-3 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
+                            >
+                                <option value="all">{tFilters('flashSale')}</option>
+                                <option value="true">{tFilters('yes')}</option>
+                                <option value="false">{tFilters('no')}</option>
+                            </select>
+                        </div>
+
+                        <div className="relative w-full">
+                            <select
+                                value={status}
+                                onChange={(e) => {
+                                    setStatus(e.target.value)
+                                    setPage(1)
+                                }}
+                                className="w-full px-3 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
+                            >
+                                <option value="all">{tFilters('status')}</option>
+                                <option value="active">{tFilters('active')}</option>
+                                <option value="hidden">{tFilters('hidden')}</option>
                             </select>
                         </div>
                     </div>
@@ -119,7 +176,7 @@ export default function AdminPage() {
                         <div className="inline-flex p-3 bg-slate-50 rounded-full mb-3">
                             <Search className="w-6 h-6 text-slate-400" />
                         </div>
-                        <p className="text-slate-500">No products found matching your search.</p>
+                        <p className="text-slate-500">{tFilters('noResults') || 'No products found matching your search.'}</p>
                     </div>
                 ) : (
                     <>
@@ -167,7 +224,7 @@ export default function AdminPage() {
                                             </button>
                                         </div>
                                         <span className="text-white text-xs font-medium px-2 py-1 bg-black/50 rounded-full">
-                                            {product.is_active ? 'Active' : 'Hidden'}
+                                            {product.is_active ? tFilters('active') : tFilters('hidden')}
                                         </span>
                                     </div>
                                 </div>

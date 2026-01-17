@@ -73,7 +73,21 @@
         "category": "Danh Mục",
         "condition": "Tình Trạng",
         "actions": "Thao Tác",
-        "confirmDelete": "Bạn có chắc chắn muốn xóa sản phẩm này không?"
+        "confirmDelete": "Bạn có chắc chắn muốn xóa sản phẩm này không?",
+        "filters": {
+            "title": "Bộ Lọc",
+            "searchPlaceholder": "Tìm kiếm sản phẩm...",
+            "allCategories": "Tất cả danh mục",
+            "hot": "Sản phẩm nổi bật (Hot)",
+            "flashSale": "Flash Sale",
+            "status": "Trạng thái hàng",
+            "all": "Tất cả",
+            "yes": "Có",
+            "no": "Không",
+            "active": "Đang bán",
+            "hidden": "Đã ẩn"
+        },
+        "subtitle": "Quản lý kho hàng và hiển thị."
     },
     "Settings": {
         "title": "Cài Đặt",

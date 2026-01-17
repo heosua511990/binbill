@@ -6,6 +6,8 @@ export interface ProductFilters {
     category?: 'new' | 'second_hand' | 'standard'; // Condition
     isOnSale?: boolean;
     isFlashSale?: boolean;
+    isHot?: boolean;
+    isActive?: boolean;
     minPrice?: number;
     maxPrice?: number;
 }
@@ -21,6 +23,8 @@ export const getProducts = async (
 
         if (!isAdmin) {
             query = query.eq('is_active', true)
+        } else if (filters.isActive !== undefined) {
+            query = query.eq('is_active', filters.isActive)
         }
 
         if (filters.search) {
@@ -50,6 +54,10 @@ export const getProducts = async (
         // If the user wants to filter by "Flash Sale", we check is_flash_sale column (which we hope exists or we added to type).
         if (filters.isFlashSale) {
             query = query.eq('is_flash_sale', true)
+        }
+
+        if (filters.isHot) {
+            query = query.eq('is_hot', true)
         }
 
         const from = (page - 1) * limit
@@ -424,6 +432,8 @@ export const getProducts = async (
         let filtered = mocks
         if (!isAdmin) {
             filtered = filtered.filter(p => p.is_active)
+        } else if (filters.isActive !== undefined) {
+            filtered = filtered.filter(p => p.is_active === filters.isActive)
         }
         if (filters.search) {
             filtered = filtered.filter(p => p.name.toLowerCase().includes(filters.search!.toLowerCase()))
@@ -433,6 +443,9 @@ export const getProducts = async (
         }
         if (filters.isFlashSale) {
             filtered = filtered.filter(p => p.is_flash_sale)
+        }
+        if (filters.isHot) {
+            filtered = filtered.filter(p => p.is_hot)
         }
         if (filters.isOnSale) {
             // Check if on sale (original_price > price)
