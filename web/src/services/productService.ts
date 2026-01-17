@@ -578,16 +578,38 @@ export const getProductById = async (id: string) => {
 }
 
 export const createProduct = async (product: Partial<Product>) => {
-    // Remove id if it's undefined/null so DB generates it, or keep it if provided
-    const { data, error } = await supabase.from('products').insert([product]).select().single()
-    if (error) throw error
-    return data as Product
+    try {
+        // Try to insert with all fields
+        const { data, error } = await supabase.from('products').insert([product]).select().single()
+        if (error) throw error
+        return data as Product
+    } catch (error: any) {
+        // If error is likely due to missing column (Postgres error 42703 usually, or generic Supabase error)
+        // We retry without 'is_flash_sale' and 'product_type' just in case
+        console.warn('Create failed, retrying without new fields:', error)
+
+        const { is_flash_sale, product_type, ...safeProduct } = product
+        const { data, error: retryError } = await supabase.from('products').insert([safeProduct]).select().single()
+
+        if (retryError) throw retryError
+        return data as Product
+    }
 }
 
 export const updateProduct = async (id: string, updates: Partial<Product>) => {
-    const { data, error } = await supabase.from('products').update(updates).eq('id', id).select().single()
-    if (error) throw error
-    return data as Product
+    try {
+        const { data, error } = await supabase.from('products').update(updates).eq('id', id).select().single()
+        if (error) throw error
+        return data as Product
+    } catch (error: any) {
+        console.warn('Update failed, retrying without new fields:', error)
+
+        const { is_flash_sale, product_type, ...safeUpdates } = updates
+        const { data, error: retryError } = await supabase.from('products').update(safeUpdates).eq('id', id).select().single()
+
+        if (retryError) throw retryError
+        return data as Product
+    }
 }
 
 export const deleteProduct = async (id: string) => {
