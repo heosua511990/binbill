@@ -22,11 +22,11 @@ export default async function HomePage() {
   const heroProduct = hotProducts[0] || products[0]
 
   return (
-    <main className="min-h-screen bg-slate-50 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <main className="min-h-screen bg-slate-50 font-sans selection:bg-blue-100 selection:text-blue-900 pb-20 md:pb-0">
       <Header />
 
-      {/* Hero Section - Immersive & Visual */}
-      <div className="relative bg-white overflow-hidden">
+      {/* Hero Section - Hidden on Mobile */}
+      <div className="relative bg-white overflow-hidden hidden md:block">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-50 to-blue-50/50" />
 
         <div className="max-w-7xl mx-auto">
@@ -82,26 +82,24 @@ export default async function HomePage() {
 
       {/* Flash Sale Section */}
       {saleProducts.length > 0 && (
-        <section id="sale" className="pt-10 pb-16 bg-white">
+        <section id="sale" className="pt-6 pb-6 md:pt-10 md:pb-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="p-3 bg-red-100 rounded-full text-red-600 animate-pulse">
-                <Zap className="w-6 h-6 fill-current" />
+            <div className="flex items-center gap-4 mb-4 md:mb-8">
+              <div className="p-2 md:p-3 bg-red-100 rounded-full text-red-600 animate-pulse">
+                <Zap className="w-5 h-5 md:w-6 md:h-6 fill-current" />
               </div>
-              <h2 className="text-3xl font-bold text-slate-900">{t('flashSale')}</h2>
+              <h2 className="text-xl md:text-3xl font-bold text-slate-900">{t('flashSale')}</h2>
             </div>
 
             {/* Horizontal Scroll Container */}
             <div className="relative">
-              <div className="flex overflow-x-auto pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 gap-4 scrollbar-hide snap-x snap-mandatory">
+              <div className="flex overflow-x-auto pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 gap-3 md:gap-4 scrollbar-hide snap-x snap-mandatory">
                 {saleProducts.map((product) => (
-                  <div key={product.id} className="min-w-[160px] w-[45%] sm:w-[30%] md:w-[25%] lg:w-[20%] flex-shrink-0 snap-start">
+                  <div key={product.id} className="min-w-[150px] w-[40%] sm:w-[30%] md:w-[25%] lg:w-[20%] flex-shrink-0 snap-start">
                     <ProductCard product={product} />
                   </div>
                 ))}
               </div>
-              {/* Gradient Fade for scroll indication */}
-              <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none sm:hidden" />
             </div>
           </div>
         </section>
@@ -109,16 +107,16 @@ export default async function HomePage() {
 
       {/* New Arrivals Section */}
       {newProducts.length > 0 && (
-        <section id="new-arrivals" className="py-20 bg-slate-50">
+        <section id="new-arrivals" className="py-8 md:py-20 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between mb-10">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-100 rounded-full text-blue-600">
-                  <Star className="w-6 h-6 fill-current" />
+            <div className="flex items-center justify-between mb-6 md:mb-10">
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="p-2 md:p-3 bg-blue-100 rounded-full text-blue-600">
+                  <Star className="w-5 h-5 md:w-6 md:h-6 fill-current" />
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900">{t('newArrivals')}</h2>
+                <h2 className="text-xl md:text-3xl font-bold text-slate-900">{t('newArrivals')}</h2>
               </div>
-              <Link href="/search?category=new" className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1 hover:gap-2 transition-all">
+              <Link href="/search?category=new" className="text-blue-600 text-sm md:text-base font-semibold hover:text-blue-700 flex items-center gap-1 hover:gap-2 transition-all">
                 {t('viewAll')} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -127,7 +125,7 @@ export default async function HomePage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+              className="grid grid-cols-2 gap-y-4 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
             >
               {newProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -139,16 +137,16 @@ export default async function HomePage() {
 
       {/* Second Hand Section */}
       {products.some(p => p.category === 'second_hand') && (
-        <section id="second-hand" className="py-20 bg-white">
+        <section id="second-hand" className="py-8 md:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between mb-10">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-emerald-100 rounded-full text-emerald-600">
-                  <ShoppingBag className="w-6 h-6" />
+            <div className="flex items-center justify-between mb-6 md:mb-10">
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="p-2 md:p-3 bg-emerald-100 rounded-full text-emerald-600">
+                  <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900">{t('secondHand')}</h2>
+                <h2 className="text-xl md:text-3xl font-bold text-slate-900">{t('secondHand')}</h2>
               </div>
-              <Link href="/search?category=second_hand" className="text-emerald-600 font-semibold hover:text-emerald-700 flex items-center gap-1 hover:gap-2 transition-all">
+              <Link href="/search?category=second_hand" className="text-emerald-600 text-sm md:text-base font-semibold hover:text-emerald-700 flex items-center gap-1 hover:gap-2 transition-all">
                 {t('viewAll')} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -157,7 +155,7 @@ export default async function HomePage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+              className="grid grid-cols-2 gap-y-4 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
             >
               {products.filter(p => p.category === 'second_hand').map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -169,20 +167,20 @@ export default async function HomePage() {
 
       {/* Recommended / Hot Section */}
       {hotProducts.length > 0 && (
-        <section className="py-20 bg-white">
+        <section className="py-8 md:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-4 mb-10">
-              <div className="p-3 bg-amber-100 rounded-full text-amber-600">
-                <TrendingUp className="w-6 h-6" />
+            <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-10">
+              <div className="p-2 md:p-3 bg-amber-100 rounded-full text-amber-600">
+                <TrendingUp className="w-5 h-5 md:w-6 md:h-6" />
               </div>
-              <h2 className="text-3xl font-bold text-slate-900">Recommended For You</h2>
+              <h2 className="text-xl md:text-3xl font-bold text-slate-900">Recommended For You</h2>
             </div>
             <MotionDiv
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+              className="grid grid-cols-2 gap-y-4 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
             >
               {hotProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -192,16 +190,16 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* All Products Fallback (if needed, or just keep sections) */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200">
+      {/* All Products Fallback */}
+      <section className="py-8 md:py-20 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">All Products</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-6 md:mb-8">All Products</h2>
           <MotionDiv
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+            className="grid grid-cols-2 gap-y-4 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
           >
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />

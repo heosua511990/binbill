@@ -49,7 +49,9 @@ export default function Header() {
                 </div>
 
                 {/* Search Bar */}
-                <SearchOverlay />
+                <div className="hidden md:block flex-1 max-w-xl mx-auto px-4">
+                    <SearchOverlay />
+                </div>
 
                 {/* Actions */}
                 <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
