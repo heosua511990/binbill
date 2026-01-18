@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { Loader2, Lock } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
@@ -102,20 +103,13 @@ export default function LoginPage() {
                         />
                     </div>
 
-                    <button
+                    <Button
                         type="submit"
-                        disabled={loading}
-                        className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                        isLoading={loading}
+                        className="w-full py-6 text-base font-bold shadow-lg shadow-blue-500/30"
                     >
-                        {loading ? (
-                            <>
-                                <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                                Signing in...
-                            </>
-                        ) : (
-                            'Sign In'
-                        )}
-                    </button>
+                        Sign In
+                    </Button>
                 </form>
             </div>
         </div>

@@ -21,11 +21,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         <MotionDiv variants={fadeIn} className="h-full bg-white hover:shadow-[0_0.0625rem_20px_0_rgba(0,0,0,.05)] hover:-translate-y-[1px] transition-transform duration-100 border border-transparent hover:border-blue-500 rounded-sm overflow-hidden relative group">
             <Link href={`/product/${product.id}`} className="block h-full flex flex-col">
                 {/* Image Container */}
-                <div className="aspect-square w-full relative bg-slate-100">
+                <div className="aspect-square w-full relative bg-slate-100 overflow-hidden">
                     <img
                         src={product.image_url}
                         alt={product.name}
-                        className="h-full w-full object-cover object-center"
+                        className="h-full w-full object-cover object-center absolute inset-0"
                     />
 
                     {/* Overlay for sold out or other status if needed */}

@@ -90,7 +90,8 @@ export default function SearchOverlay() {
                 />
                 <button
                     type="submit"
-                    className="absolute right-0 top-0 h-full px-4 text-slate-500 hover:text-blue-600 transition-colors"
+                    disabled={loading}
+                    className="absolute right-0 top-0 h-full px-4 text-slate-500 hover:text-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Search className="w-5 h-5" />}
                 </button>

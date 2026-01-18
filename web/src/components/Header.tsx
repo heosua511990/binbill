@@ -6,6 +6,7 @@ import { useState } from 'react'
 import LanguageSwitcher from './LanguageSwitcher'
 import { useTranslations } from 'next-intl'
 import SearchOverlay from './SearchOverlay'
+import { Button } from '@/components/ui/Button'
 
 export default function Header() {
     const t = useTranslations('Navigation')
@@ -32,19 +33,19 @@ export default function Header() {
 
                 {/* Categories Button (Desktop) - Simple Dropdown */}
                 <div className="hidden lg:block relative group z-50">
-                    <button className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors font-medium text-sm">
+                    <Button variant="ghost" className="flex items-center gap-2 text-slate-700 hover:bg-slate-100 font-medium text-sm">
                         <Menu className="w-5 h-5" />
                         <span>Categories</span>
-                    </button>
+                    </Button>
                     <div className="absolute top-full left-0 w-56 bg-white shadow-xl rounded-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 p-2">
                         <div className="text-xs font-bold text-slate-400 px-3 py-2 uppercase tracking-wider">Product Types</div>
-                        <Link href="/search?type=Headphones" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">Headphones</Link>
-                        <Link href="/search?type=Watch" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">Watches</Link>
-                        <Link href="/search?type=Speaker" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">Speakers</Link>
-                        <Link href="/search?type=Camera" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">Cameras</Link>
-                        <Link href="/search?type=Laptop" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">Laptops</Link>
+                        <Link href="/search?type=Headphones" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">Headphones</Link>
+                        <Link href="/search?type=Watch" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">Watches</Link>
+                        <Link href="/search?type=Speaker" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">Speakers</Link>
+                        <Link href="/search?type=Camera" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">Cameras</Link>
+                        <Link href="/search?type=Laptop" className="block px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">Laptops</Link>
                         <div className="my-1 border-t border-slate-100"></div>
-                        <Link href="/search?category=second_hand" className="block px-3 py-2 text-sm text-emerald-600 font-medium hover:bg-emerald-50 rounded-lg">Second Hand Deals</Link>
+                        <Link href="/search?category=second_hand" className="block px-3 py-2 text-sm text-emerald-600 font-medium hover:bg-emerald-50 rounded-lg transition-colors">Second Hand Deals</Link>
                     </div>
                 </div>
 

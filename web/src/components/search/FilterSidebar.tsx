@@ -1,8 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Filter, Star, ChevronDown, ChevronUp } from 'lucide-react'
+import { Filter } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
+import { motion } from 'framer-motion'
 
 interface FilterSidebarProps {
     uniqueTypes: string[]
@@ -11,11 +13,11 @@ interface FilterSidebarProps {
 export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
+    const [isPending, startTransition] = useTransition()
 
     // Local state for inputs
     const [minPrice, setMinPrice] = useState(searchParams.get('minPrice') || '')
     const [maxPrice, setMaxPrice] = useState(searchParams.get('maxPrice') || '')
-    const [isExpanded, setIsExpanded] = useState(true)
 
     // Update local state when URL params change
     useEffect(() => {
@@ -30,7 +32,9 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
         } else {
             params.set(key, value)
         }
-        router.push(`/search?${params.toString()}`)
+        startTransition(() => {
+            router.push(`/search?${params.toString()}`)
+        })
     }
 
     const toggleFilter = (key: string) => {
@@ -41,7 +45,9 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
         } else {
             params.set(key, 'true')
         }
-        router.push(`/search?${params.toString()}`)
+        startTransition(() => {
+            router.push(`/search?${params.toString()}`)
+        })
     }
 
     const applyPriceFilter = () => {
@@ -52,13 +58,39 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
         if (maxPrice) params.set('maxPrice', maxPrice)
         else params.delete('maxPrice')
 
-        router.push(`/search?${params.toString()}`)
+        startTransition(() => {
+            router.push(`/search?${params.toString()}`)
+        })
+    }
+
+    const clearAll = () => {
+        startTransition(() => {
+            router.push('/search')
+        })
     }
 
     const currentCategory = searchParams.get('category')
     const currentType = searchParams.get('type')
     const isOnSale = searchParams.get('on_sale') === 'true'
     const isFlashSale = searchParams.get('flash_sale') === 'true'
+
+    const FilterOption = ({ label, checked, onChange }: { label: React.ReactNode, checked: boolean, onChange: () => void }) => (
+        <motion.label
+            className={`flex items-center gap-2 cursor-pointer p-2 rounded-md transition-colors ${checked ? 'bg-blue-50 text-blue-700' : 'hover:bg-slate-50 text-slate-700'}`}
+            whileTap={{ scale: 0.98 }}
+        >
+            <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${checked ? 'bg-blue-600 border-blue-600' : 'border-slate-300 bg-white'}`}>
+                {checked && <motion.svg initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></motion.svg>}
+            </div>
+            <input
+                type="checkbox"
+                checked={checked}
+                onChange={onChange}
+                className="hidden"
+            />
+            <span className="text-sm font-medium">{label}</span>
+        </motion.label>
+    )
 
     return (
         <aside className="w-full lg:w-[250px] flex-shrink-0 space-y-8 pr-4">
@@ -71,34 +103,22 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
             {/* Categories (Condition) */}
             <div>
                 <h3 className="text-sm font-semibold text-slate-900 mb-3">Theo Danh Mục</h3>
-                <div className="space-y-2 text-sm">
-                    <label className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                        <input
-                            type="checkbox"
-                            checked={!currentCategory}
-                            onChange={() => updateFilter('category', null)}
-                            className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span>Tất cả</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                        <input
-                            type="checkbox"
-                            checked={currentCategory === 'new'}
-                            onChange={() => updateFilter('category', currentCategory === 'new' ? null : 'new')}
-                            className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span>Hàng mới (New)</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                        <input
-                            type="checkbox"
-                            checked={currentCategory === 'second_hand'}
-                            onChange={() => updateFilter('category', currentCategory === 'second_hand' ? null : 'second_hand')}
-                            className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span>Hàng cũ (Second Hand)</span>
-                    </label>
+                <div className="space-y-1">
+                    <FilterOption
+                        label="Tất cả"
+                        checked={!currentCategory}
+                        onChange={() => updateFilter('category', null)}
+                    />
+                    <FilterOption
+                        label="Hàng mới (New)"
+                        checked={currentCategory === 'new'}
+                        onChange={() => updateFilter('category', currentCategory === 'new' ? null : 'new')}
+                    />
+                    <FilterOption
+                        label="Hàng cũ (Second Hand)"
+                        checked={currentCategory === 'second_hand'}
+                        onChange={() => updateFilter('category', currentCategory === 'second_hand' ? null : 'second_hand')}
+                    />
                 </div>
             </div>
 
@@ -111,7 +131,7 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
                         placeholder="₫ TỪ"
                         value={minPrice}
                         onChange={(e) => setMinPrice(e.target.value)}
-                        className="w-full px-2 py-1.5 text-sm border border-slate-300 rounded shadow-sm focus:outline-none focus:border-blue-500"
+                        className="w-full px-2 py-2 text-sm border border-slate-300 rounded shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                     />
                     <span className="text-slate-400">-</span>
                     <input
@@ -119,39 +139,33 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
                         placeholder="₫ ĐẾN"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
-                        className="w-full px-2 py-1.5 text-sm border border-slate-300 rounded shadow-sm focus:outline-none focus:border-blue-500"
+                        className="w-full px-2 py-2 text-sm border border-slate-300 rounded shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                     />
                 </div>
-                <button
+                <Button
                     onClick={applyPriceFilter}
-                    className="w-full py-1.5 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition-colors uppercase"
+                    className="w-full uppercase"
+                    isLoading={isPending}
+                    size="sm"
                 >
                     Áp dụng
-                </button>
+                </Button>
             </div>
 
             {/* Status */}
             <div>
                 <h3 className="text-sm font-semibold text-slate-900 mb-3">Dịch Vụ & Khuyến Mãi</h3>
-                <div className="space-y-2 text-sm">
-                    <label className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                        <input
-                            type="checkbox"
-                            checked={isFlashSale}
-                            onChange={() => toggleFilter('flash_sale')}
-                            className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span className="flex items-center gap-1">Flash Sale <span className="text-xs bg-red-100 text-red-600 px-1 rounded font-bold">HOT</span></span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                        <input
-                            type="checkbox"
-                            checked={isOnSale}
-                            onChange={() => toggleFilter('on_sale')}
-                            className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span>Đang giảm giá</span>
-                    </label>
+                <div className="space-y-1">
+                    <FilterOption
+                        label={<span className="flex items-center gap-1">Flash Sale <span className="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">HOT</span></span>}
+                        checked={isFlashSale}
+                        onChange={() => toggleFilter('flash_sale')}
+                    />
+                    <FilterOption
+                        label="Đang giảm giá"
+                        checked={isOnSale}
+                        onChange={() => toggleFilter('on_sale')}
+                    />
                 </div>
             </div>
 
@@ -159,30 +173,27 @@ export default function FilterSidebar({ uniqueTypes }: FilterSidebarProps) {
             {uniqueTypes.length > 0 && (
                 <div>
                     <h3 className="text-sm font-semibold text-slate-900 mb-3">Loại Sản Phẩm</h3>
-                    <div className="space-y-2 text-sm max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                    <div className="space-y-1 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                         {uniqueTypes.map(t => (
-                            <label key={t} className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
-                                <input
-                                    type="checkbox"
-                                    checked={currentType === t}
-                                    onChange={() => updateFilter('type', currentType === t ? null : t)}
-                                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                                />
-                                <span>{t}</span>
-                            </label>
+                            <FilterOption
+                                key={t}
+                                label={t}
+                                checked={currentType === t}
+                                onChange={() => updateFilter('type', currentType === t ? null : t)}
+                            />
                         ))}
                     </div>
                 </div>
             )}
 
-
-
-            <button
-                onClick={() => router.push('/search')}
-                className="w-full py-2 border border-slate-300 text-slate-600 text-sm font-medium rounded hover:bg-slate-50 transition-colors uppercase mt-4"
+            <Button
+                variant="outline"
+                onClick={clearAll}
+                className="w-full uppercase mt-4"
+                disabled={isPending}
             >
                 Xóa tất cả
-            </button>
+            </Button>
         </aside>
     )
 }
